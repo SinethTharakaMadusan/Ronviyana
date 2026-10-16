@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RONVIANA — Admin Control Center</title>
+  <meta name="description" content="Production-ready administration panel for RONVIANA wallpaper platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="admin-shell" id="adminShell">
+    
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ========================================================= -->
+    <!-- SIDEBAR NAVIGATION                                       -->
+    <!-- ========================================================= -->
+    <aside class="admin-sidebar" id="adminSidebar">
+  <div class="sidebar-header">
+    <a href="#dashboard" class="logo" style="text-decoration: none;">
+      <span class="logo__mark">
+        <svg viewBox="0 0 32 32" width="22" height="22">
+          <path d="M8 6h8a5 5 0 0 1 0 10H8zm0 10l9 10" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="logo__text">Ronviana</span>
+    </a>
+    <span class="sidebar-brand-badge">CONTROL</span>
+  </div>
+
+      <nav class="sidebar-nav">
+        <!-- Main Group -->
+        <div>
+          <div class="nav-group-title">Overview</div>
+          <ul class="nav-menu">
+            <li class="nav-item active" data-view="dashboard">
+              <a href="#dashboard">
+                <svg viewBox="0 0 24 24" class="ico"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="analytics">
+              <a href="#analytics">
+                <svg viewBox="0 0 24 24" class="ico"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span>Analytics & Trends</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Catalog Group -->
+        <div>
+          <div class="nav-group-title">Catalog Management</div>
+          <ul class="nav-menu">
+            <li class="nav-item" data-view="wallpapers">
+              <a href="#wallpapers">
+                <svg viewBox="0 0 24 24" class="ico"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                <span>Wallpapers</span>
+                <span class="badge-count" id="sidebarWallpaperCount">0</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="add-wallpaper">
+              <a href="#add-wallpaper">
+                <svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>Add Wallpaper</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="categories">
+              <a href="#categories">
+                <svg viewBox="0 0 24 24" class="ico"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <span>Categories</span>
+                <span class="badge-count" id="sidebarCategoryCount">0</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="collections">
+              <a href="#collections">
+                <svg viewBox="0 0 24 24" class="ico"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                <span>Collections</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="popular">
+              <a href="#popular">
+                <svg viewBox="0 0 24 24" class="ico"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <span>Popular & Hot</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="new-releases">
+              <a href="#new-releases">
+                <svg viewBox="0 0 24 24" class="ico"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>New Releases</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Community & Audit Group -->
+        <div>
+          <div class="nav-group-title">Community & Logs</div>
+          <ul class="nav-menu">
+            <li class="nav-item" data-view="users">
+              <a href="#users">
+                <svg viewBox="0 0 24 24" class="ico"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>Users</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="activity">
+              <a href="#activity">
+                <svg viewBox="0 0 24 24" class="ico"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span>Activity Log</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- System & Config Group -->
+        <div>
+          <div class="nav-group-title">Platform</div>
+          <ul class="nav-menu">
+            <li class="nav-item" data-view="homepage">
+              <a href="#homepage">
+                <svg viewBox="0 0 24 24" class="ico"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Homepage Manager</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="settings">
+              <a href="#settings">
+                <svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Settings</span>
+              </a>
+            </li>
+            <li class="nav-item" data-view="profile">
+              <a href="#profile">
+                <svg viewBox="0 0 24 24" class="ico"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>Admin Profile</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <div class="admin-mini-profile">
+          <div class="admin-avatar" id="sidebarAvatar">A</div>
+          <div class="admin-info">
+            <div class="name" id="sidebarAdminName">Administrator</div>
+            <div class="role">Platform Superadmin</div>
+          </div>
+        </div>
+        <button class="icon-btn" id="logoutBtn" title="Sign Out" aria-label="Sign Out">
+          <svg viewBox="0 0 24 24" class="ico"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ========================================================= -->
+    <!-- MAIN WORKSPACE                                            -->
+    <!-- ========================================================= -->
+    <main class="admin-main">
+      <!-- Top Header -->
+      <header class="admin-header">
+        <div class="header-left">
+          <button class="icon-btn" id="sidebarToggle" aria-label="Toggle Navigation">
+            <svg viewBox="0 0 24 24" class="ico"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="header-breadcrumb">
+            <span>RONVIANA</span>
+            <span class="sep">/</span>
+            <span class="current" id="breadcrumbTitle">Dashboard</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="header-search">
+            <svg viewBox="0 0 24 24" class="ico"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+            <input type="text" id="globalSearchInput" placeholder="Quick search wallpapers..." />
+          </div>
+
+          <a href="../index.html" target="_blank" class="btn btn--secondary btn--sm" title="Open Public Website">
+            <svg viewBox="0 0 24 24" class="ico" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span>Public Site</span>
+          </a>
+
+          <button class="icon-btn" id="refreshDataBtn" title="Refresh Data" aria-label="Refresh Data">
+            <svg viewBox="0 0 24 24" class="ico"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Dynamic Content Views -->
+      <div class="admin-content">
+
+        <!-- ────────────────── VIEW: DASHBOARD ────────────────── -->
+        <section class="view-section active" id="view-dashboard">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Dashboard Overview</h1>
+              <p class="section-subtitle">Real-time telemetry and platform metrics</p>
+            </div>
+            <div class="section-actions">
+              <a href="#add-wallpaper" class="btn btn--primary">
+                <svg viewBox="0 0 24 24" class="ico"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Upload Wallpaper</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Stats 4 Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Total Wallpapers</span>
+                <div class="stat-card-icon stat-icon--purple">
+                  <svg viewBox="0 0 24 24" class="ico"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="statWallpapers">0</div>
+              <div class="stat-card-trend trend--up">
+                <svg viewBox="0 0 24 24" class="ico" width="14" height="14"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <span id="statPublishedDraft">0 published • 0 drafts</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Total Downloads</span>
+                <div class="stat-card-icon stat-icon--blue">
+                  <svg viewBox="0 0 24 24" class="ico"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="statDownloads">0</div>
+              <div class="stat-card-trend trend--up">
+                <svg viewBox="0 0 24 24" class="ico" width="14" height="14"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <span id="statTodayDownloads">+0 today</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Total Views</span>
+                <div class="stat-card-icon stat-icon--pink">
+                  <svg viewBox="0 0 24 24" class="ico"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="statViews">0</div>
+              <div class="stat-card-trend trend--up">
+                <svg viewBox="0 0 24 24" class="ico" width="14" height="14"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                <span id="statTodayViews">+0 today</span>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-card-header">
+                <span class="stat-card-title">Categories & Users</span>
+                <div class="stat-card-icon stat-icon--green">
+                  <svg viewBox="0 0 24 24" class="ico"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </div>
+              </div>
+              <div class="stat-card-value" id="statCategoriesUsers">0</div>
+              <div class="stat-card-trend trend--neutral">
+                <span id="statStorageUsed">0 MB storage</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Row -->
+          <div class="dash-grid-2">
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title">Activity & Traffic Trend (Last 14 Days)</div>
+                <div style="font-size: 0.8rem; color: var(--accent-2);">Downloads & Views</div>
+              </div>
+              <div class="chart-container">
+                <canvas id="trafficChart"></canvas>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title">Popular Categories</div>
+                <a href="#categories" class="btn btn--secondary btn--sm">View All</a>
+              </div>
+              <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tables Row -->
+          <div class="dash-grid-2">
+            <!-- Recent Wallpapers -->
+            <div class="table-card">
+              <div class="table-toolbar">
+                <div style="font-weight: 700; font-size: 1rem;">Recent Uploads</div>
+                <a href="#wallpapers" class="btn btn--secondary btn--sm">View All</a>
+              </div>
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Wallpaper</th>
+                      <th>Category</th>
+                      <th>Resolution</th>
+                      <th>Downloads</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dashRecentWallpapersBody">
+                    <tr><td colspan="4" style="text-align: center; color: var(--text-faint);">Loading...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title">Admin Audit Trail</div>
+                <a href="#activity" class="btn btn--secondary btn--sm">Full Log</a>
+              </div>
+              <div id="dashRecentActivityList" style="display: flex; flex-direction: column; gap: 14px;">
+                <div style="color: var(--text-faint); font-size: 0.85rem;">Loading audit logs...</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: WALLPAPERS ────────────────── -->
+        <section class="view-section" id="view-wallpapers">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Wallpaper Management</h1>
+              <p class="section-subtitle">Catalog inventory, metadata, tags, and publishing status</p>
+            </div>
+            <div class="section-actions">
+              <a href="#add-wallpaper" class="btn btn--primary">
+                <svg viewBox="0 0 24 24" class="ico"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Upload New Wallpaper</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <!-- Filter Bar -->
+            <div class="table-toolbar">
+              <div class="table-filters">
+                <input type="text" class="filter-input" id="filterWallpaperSearch" placeholder="Search title, tags..." style="width: 200px;" />
+                <select class="filter-select" id="filterWallpaperCategory">
+                  <option value="">All Categories</option>
+                </select>
+                <select class="filter-select" id="filterWallpaperDevice">
+                  <option value="">All Devices</option>
+                  <option value="Mobile">Mobile</option>
+                  <option value="Desktop">Desktop</option>
+                  <option value="Tablet">Tablet</option>
+                  <option value="Universal">Universal</option>
+                </select>
+                <select class="filter-select" id="filterWallpaperStatus">
+                  <option value="">All Statuses</option>
+                  <option value="published">Published Only</option>
+                  <option value="draft">Drafts Only</option>
+                  <option value="featured">Featured</option>
+                  <option value="popular">Popular</option>
+                  <option value="new">New</option>
+                </select>
+              </div>
+
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn--secondary btn--sm" id="btnResetWallpaperFilters">Reset</button>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Resolution</th>
+                    <th>Device</th>
+                    <th>Downloads / Views</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="wallpapersTableBody">
+                  <tr><td colspan="7" style="text-align: center;">Loading inventory...</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="table-pagination">
+              <div id="wallpapersPaginationInfo">Showing 0 of 0</div>
+              <div class="pagination-controls" id="wallpapersPaginationControls"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: ADD WALLPAPER ────────────────── -->
+        <section class="view-section" id="view-add-wallpaper">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Add New Wallpaper</h1>
+              <p class="section-subtitle">Upload high-resolution image and define metadata</p>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <form id="addWallpaperForm">
+              <!-- Upload Dropzone -->
+              <div class="form-group">
+                <label>Wallpaper File (JPG, PNG, WebP — max 20MB)</label>
+                <div class="upload-dropzone" id="wallpaperDropzone">
+                  <input type="file" id="wallpaperFileInput" accept="image/jpeg,image/png,image/webp" />
+                  <div class="dropzone-icon">
+                    <svg viewBox="0 0 24 24" class="ico" width="28" height="28"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  </div>
+                  <div class="dropzone-title">Click to upload or drag & drop wallpaper</div>
+                  <div class="dropzone-sub">High-resolution images recommended (4K / 8K). Auto-thumbnails generated on the fly.</div>
+                </div>
+
+                <div class="upload-preview-container" id="uploadPreviewBox">
+                  <img class="upload-preview-img" id="uploadPreviewImg" src="" alt="Preview" />
+                  <div class="upload-preview-info">
+                    <div class="upload-preview-name" id="uploadPreviewName">filename.jpg</div>
+                    <div class="upload-preview-meta" id="uploadPreviewMeta">0 KB • 0x0</div>
+                  </div>
+                  <button type="button" class="btn btn--secondary btn--sm" id="btnRemoveFile">Remove</button>
+                </div>
+              </div>
+
+              <!-- Title & Category -->
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="wallpaperTitle">Title *</label>
+                  <input type="text" class="form-control" id="wallpaperTitle" required placeholder="e.g. Neon Horizon" />
+                </div>
+                <div class="form-group">
+                  <label for="wallpaperCategory">Category *</label>
+                  <select class="form-control" id="wallpaperCategory" required>
+                    <option value="">Select Category</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Resolution & Device -->
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="wallpaperResolution">Resolution Label</label>
+                  <select class="form-control" id="wallpaperResolution">
+                    <option value="4K">4K Ultra HD</option>
+                    <option value="8K">8K Ultra HD</option>
+                    <option value="HD">1080p Full HD</option>
+                    <option value="Dynamic">Dynamic OLED</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="wallpaperDevice">Target Device</label>
+                  <select class="form-control" id="wallpaperDevice">
+                    <option value="Mobile">Mobile (Smartphones)</option>
+                    <option value="Desktop">Desktop (PC / Mac)</option>
+                    <option value="Tablet">Tablet (iPad)</option>
+                    <option value="Universal">Universal</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Tags & Description -->
+              <div class="form-group">
+                <label for="wallpaperTags">Tags (comma-separated)</label>
+                <input type="text" class="form-control" id="wallpaperTags" placeholder="neon, cyberpunk, dark, aesthetic" />
+                <div class="form-hint">Tags help users find wallpapers through smart search.</div>
+              </div>
+
+              <div class="form-group">
+                <label for="wallpaperDescription">Description</label>
+                <textarea class="form-control" id="wallpaperDescription" rows="3" placeholder="Brief story or atmosphere description..."></textarea>
+              </div>
+
+              <!-- Flags Toggles -->
+              <div class="form-group" style="display: flex; gap: 28px; flex-wrap: wrap; margin-top: 10px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="addIsPublished" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <span>Publish Immediately</span>
+                </label>
+
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="addIsFeatured" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <span>Feature on Homepage</span>
+                </label>
+
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="addIsPopular" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <span>Mark as Popular</span>
+                </label>
+
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="addIsNew" checked />
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <span>Mark as New</span>
+                </label>
+              </div>
+
+              <div style="margin-top: 30px; display: flex; gap: 12px;">
+                <button type="submit" class="btn btn--primary" id="btnSubmitAddWallpaper">
+                  <svg viewBox="0 0 24 24" class="ico"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Save & Publish Wallpaper</span>
+                </button>
+                <button type="reset" class="btn btn--secondary" id="btnResetAddForm">Clear</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: CATEGORIES ────────────────── -->
+        <section class="view-section" id="view-categories">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Category Management</h1>
+              <p class="section-subtitle">Organize wallpaper genres, cover photos, and ordering</p>
+            </div>
+            <div class="section-actions">
+              <button class="btn btn--primary" id="btnOpenAddCategoryModal">
+                <svg viewBox="0 0 24 24" class="ico"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Add Category</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="category-cards-grid" id="categoriesGrid">
+            <div class="empty-state">Loading categories...</div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: COLLECTIONS ────────────────── -->
+        <section class="view-section" id="view-collections">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Curated Collections</h1>
+              <p class="section-subtitle">Themed wallpaper bundles and editorial packs</p>
+            </div>
+            <div class="section-actions">
+              <button class="btn btn--primary" id="btnOpenAddCollectionModal">
+                <svg viewBox="0 0 24 24" class="ico"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Create Collection</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="category-cards-grid" id="collectionsGrid">
+            <div class="empty-state">Loading collections...</div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: POPULAR ────────────────── -->
+        <section class="view-section" id="view-popular">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Popular & Trending Wallpapers</h1>
+              <p class="section-subtitle">Top downloads and highly favorited wallpapers</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Wallpaper</th>
+                    <th>Category</th>
+                    <th>Downloads</th>
+                    <th>Views</th>
+                    <th>Favorites</th>
+                    <th>Popular Status</th>
+                  </tr>
+                </thead>
+                <tbody id="popularTableBody">
+                  <tr><td colspan="7" style="text-align: center;">Loading rankings...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: NEW RELEASES ────────────────── -->
+        <section class="view-section" id="view-new-releases">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">New Releases</h1>
+              <p class="section-subtitle">Recently added wallpapers flagged with the "New" badge</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Wallpaper</th>
+                    <th>Category</th>
+                    <th>Added Date</th>
+                    <th>Downloads</th>
+                    <th>New Badge Active</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="newReleasesTableBody">
+                  <tr><td colspan="6" style="text-align: center;">Loading new releases...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: USERS ────────────────── -->
+        <section class="view-section" id="view-users">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">User Accounts</h1>
+              <p class="section-subtitle">Manage registered public accounts and activity</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div class="table-filters">
+                <input type="text" class="filter-input" id="filterUserSearch" placeholder="Search user email or name..." />
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Favorites</th>
+                    <th>Downloads</th>
+                    <th>Joined</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                  <tr><td colspan="6" style="text-align: center;">Loading users...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: ANALYTICS ────────────────── -->
+        <section class="view-section" id="view-analytics">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Analytics & Insights</h1>
+              <p class="section-subtitle">Traffic volume, resolution trends, and visitor metrics</p>
+            </div>
+          </div>
+
+          <div class="dash-grid-2">
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title">Daily Downloads vs Views (30 Days)</div>
+              </div>
+              <div class="chart-container" style="height: 320px;">
+                <canvas id="analyticsAreaChart"></canvas>
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <div class="dash-card-title">Device Breakdown</div>
+              </div>
+              <div class="chart-container" style="height: 320px;">
+                <canvas id="analyticsDeviceChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: HOMEPAGE MANAGER ────────────────── -->
+        <section class="view-section" id="view-homepage">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Homepage Layout Manager</h1>
+              <p class="section-subtitle">Customize public landing page sections and titles</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Section Name</th>
+                    <th>Section Title</th>
+                    <th>Description / Subtitle</th>
+                    <th>Enabled</th>
+                    <th style="text-align: right;">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="homepageSectionsBody">
+                  <tr><td colspan="5" style="text-align: center;">Loading sections...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: SETTINGS ────────────────── -->
+        <section class="view-section" id="view-settings">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Platform Settings</h1>
+              <p class="section-subtitle">Configure website branding, SEO metadata, and media upload rules</p>
+            </div>
+          </div>
+
+          <div class="form-card">
+            <form id="settingsForm">
+              <h3 style="margin-bottom: 18px; color: var(--accent-2);">General Configuration</h3>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="settingSiteTitle">Site Title</label>
+                  <input type="text" class="form-control" id="settingSiteTitle" name="site_title" />
+                </div>
+                <div class="form-group">
+                  <label for="settingContactEmail">Contact / Support Email</label>
+                  <input type="email" class="form-control" id="settingContactEmail" name="contact_email" />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="settingSiteDesc">Site Meta Description</label>
+                <textarea class="form-control" id="settingSiteDesc" name="site_description" rows="2"></textarea>
+              </div>
+
+              <h3 style="margin-top: 32px; margin-bottom: 18px; color: var(--accent-2);">Media & Upload Limits</h3>
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label for="settingMaxUpload">Max Upload Size (Bytes)</label>
+                  <input type="number" class="form-control" id="settingMaxUpload" name="max_upload_size" />
+                  <div class="form-hint">Default 20971520 = 20 MB</div>
+                </div>
+                <div class="form-group">
+                  <label for="settingItemsPerPage">Wallpapers per Page (Public)</label>
+                  <input type="number" class="form-control" id="settingItemsPerPage" name="items_per_page" />
+                </div>
+              </div>
+
+              <div style="margin-top: 30px;">
+                <button type="submit" class="btn btn--primary" id="btnSaveSettings">
+                  <svg viewBox="0 0 24 24" class="ico"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Save Configuration</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: PROFILE ────────────────── -->
+        <section class="view-section" id="view-profile">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Admin Profile</h1>
+              <p class="section-subtitle">Update administrator credentials and security</p>
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="max-width: 900px;">
+            <div class="form-card">
+              <h3 style="margin-bottom: 20px;">Profile Information</h3>
+              <form id="profileInfoForm">
+                <div class="form-group">
+                  <label for="profileName">Display Name</label>
+                  <input type="text" class="form-control" id="profileName" required />
+                </div>
+                <div class="form-group">
+                  <label for="profileEmail">Email Address</label>
+                  <input type="email" class="form-control" id="profileEmail" required />
+                </div>
+                <button type="submit" class="btn btn--primary">Update Profile</button>
+              </form>
+            </div>
+
+            <div class="form-card">
+              <h3 style="margin-bottom: 20px;">Change Password</h3>
+              <form id="passwordChangeForm">
+                <div class="form-group">
+                  <label for="currentPassword">Current Password</label>
+                  <input type="password" class="form-control" id="currentPassword" required />
+                </div>
+                <div class="form-group">
+                  <label for="newPassword">New Password</label>
+                  <input type="password" class="form-control" id="newPassword" required minlength="8" />
+                </div>
+                <div class="form-group">
+                  <label for="confirmNewPassword">Confirm New Password</label>
+                  <input type="password" class="form-control" id="confirmNewPassword" required minlength="8" />
+                </div>
+                <button type="submit" class="btn btn--secondary">Change Password</button>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- ────────────────── VIEW: ACTIVITY LOG ────────────────── -->
+        <section class="view-section" id="view-activity">
+          <div class="section-header">
+            <div>
+              <h1 class="section-title">Audit Trail & Logs</h1>
+              <p class="section-subtitle">Immutable log of all administrative actions, updates, and deletes</p>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Timestamp</th>
+                    <th>Administrator</th>
+                    <th>Action</th>
+                    <th>Entity</th>
+                    <th>Details</th>
+                    <th>IP Address</th>
+                  </tr>
+                </thead>
+                <tbody id="activityTableBody">
+                  <tr><td colspan="6" style="text-align: center;">Loading audit logs...</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-pagination">
+              <div id="activityPaginationInfo">Showing 0 of 0</div>
+              <div class="pagination-controls" id="activityPaginationControls"></div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODALS                                                    -->
+  <!-- ========================================================= -->
+
+  <!-- Edit Wallpaper Modal -->
+  <div class="admin-modal-backdrop" id="editWallpaperModal">
+    <div class="admin-modal" style="max-width: 650px;">
+      <div class="modal-header">
+        <div class="modal-title">Edit Wallpaper</div>
+        <button class="icon-btn modal-close" data-modal="editWallpaperModal">
+          <svg viewBox="0 0 24 24" class="ico"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="editWallpaperForm">
+        <input type="hidden" id="editWallpaperId" />
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="editTitle">Title *</label>
+            <input type="text" class="form-control" id="editTitle" required />
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="editCategory">Category</label>
+              <select class="form-control" id="editCategory" required></select>
+            </div>
+            <div class="form-group">
+              <label for="editResolution">Resolution</label>
+              <select class="form-control" id="editResolution">
+                <option value="4K">4K Ultra HD</option>
+                <option value="8K">8K Ultra HD</option>
+                <option value="HD">1080p Full HD</option>
+                <option value="Dynamic">Dynamic OLED</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="editTags">Tags (comma-separated)</label>
+            <input type="text" class="form-control" id="editTags" />
+          </div>
+          <div class="form-group">
+            <label for="editDescription">Description</label>
+            <textarea class="form-control" id="editDescription" rows="2"></textarea>
+          </div>
+          <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            <label style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="editIsPublished" />
+              <span>Published</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="editIsFeatured" />
+              <span>Featured</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="editIsPopular" />
+              <span>Popular</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="editIsNew" />
+              <span>New</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--secondary modal-close" data-modal="editWallpaperModal">Cancel</button>
+          <button type="submit" class="btn btn--primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add/Edit Category Modal -->
+  <div class="admin-modal-backdrop" id="categoryModal">
+    <div class="admin-modal">
+      <div class="modal-header">
+        <div class="modal-title" id="categoryModalTitle">Add Category</div>
+        <button class="icon-btn modal-close" data-modal="categoryModal">
+          <svg viewBox="0 0 24 24" class="ico"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <form id="categoryForm">
+        <input type="hidden" id="categoryId" />
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="catName">Category Name *</label>
+            <input type="text" class="form-control" id="catName" required placeholder="e.g. Cyberpunk" />
+          </div>
+          <div class="form-group">
+            <label for="catCover">Cover Image URL (or upload below)</label>
+            <input type="text" class="form-control" id="catCover" placeholder="https://... or /uploads/..." />
+          </div>
+          <div class="form-group">
+            <label for="catDesc">Description</label>
+            <textarea class="form-control" id="catDesc" rows="2" placeholder="Brief category description..."></textarea>
+          </div>
+          <label style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" id="catIsActive" checked />
+            <span>Active Category</span>
+          </label>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn--secondary modal-close" data-modal="categoryModal">Cancel</button>
+          <button type="submit" class="btn btn--primary">Save Category</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="admin-modal-backdrop" id="deleteConfirmModal">
+    <div class="admin-modal" style="max-width: 420px;">
+      <div class="modal-header">
+        <div class="modal-title" style="color: #ff6b6b;">Confirm Delete</div>
+        <button class="icon-btn modal-close" data-modal="deleteConfirmModal">
+          <svg viewBox="0 0 24 24" class="ico"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="deleteConfirmMessage">Are you sure you want to permanently delete this item? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--secondary modal-close" data-modal="deleteConfirmModal">Cancel</button>
+        <button type="button" class="btn btn--danger" id="btnExecuteDelete">Delete Permanently</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Admin Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

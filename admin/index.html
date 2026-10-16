@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login - Ronviana Control Center</title>
+  <meta name="description" content="Secure administrative access for RONVIANA wallpaper platform." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Login Page Specific Layout */
+    .login-body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    /* Ambient background glows matching RONVIANA aesthetic */
+    .ambient-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(130px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.45;
+    }
+    .glow-1 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(124, 92, 255, 0.45) 0%, rgba(124, 92, 255, 0) 70%);
+      top: -15%;
+      left: -10%;
+    }
+    .glow-2 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(58, 169, 255, 0.35) 0%, rgba(58, 169, 255, 0) 70%);
+      bottom: -15%;
+      right: -10%;
+    }
+
+    .login-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      background: rgba(21, 21, 21, 0.72);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--r-xl);
+      padding: 40px 36px;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255, 255, 255, 0.05);
+      animation: cardFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .login-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      text-decoration: none;
+    }
+
+    .login-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+      background: rgba(58, 169, 255, 0.12);
+      border: 1px solid rgba(58, 169, 255, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .login-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .login-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+    }
+
+    .login-form .form-group {
+      margin-bottom: 20px;
+    }
+
+    .login-form label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper .input-icon {
+      position: absolute;
+      left: 14px;
+      color: var(--text-faint);
+      width: 18px;
+      height: 18px;
+      pointer-events: none;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 13px 16px 13px 44px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      transition: all var(--fast);
+    }
+
+    .input-wrapper input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.22);
+      background: rgba(27, 27, 27, 0.95);
+    }
+
+    .input-wrapper .toggle-pwd {
+      position: absolute;
+      right: 14px;
+      color: var(--text-faint);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color var(--fast);
+    }
+    .input-wrapper .toggle-pwd:hover {
+      color: var(--text);
+    }
+
+    .form-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+      color: var(--text-dim);
+    }
+
+    .form-meta label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      margin-bottom: 0;
+      user-select: none;
+    }
+
+    .form-meta input[type="checkbox"] {
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .login-btn {
+      width: 100%;
+      height: 48px;
+      font-size: 0.96rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      border-radius: var(--r-md);
+      background: var(--accent-grad);
+      color: #fff;
+      box-shadow: var(--shadow-accent);
+      cursor: pointer;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all var(--fast);
+    }
+    .login-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 42px rgba(124, 92, 255, 0.45);
+    }
+    .login-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .login-btn .btn-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+
+    .login-btn.is-loading .btn-spinner { display: inline-block; }
+    .login-btn.is-loading .btn-text { display: none; }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .login-error {
+      background: rgba(255, 77, 77, 0.12);
+      border: 1px solid rgba(255, 77, 77, 0.3);
+      color: #ff6b6b;
+      padding: 12px 16px;
+      border-radius: var(--r-md);
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .demo-hint {
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-faint);
+      line-height: 1.6;
+    }
+
+    .demo-hint code {
+      background: var(--surface-2);
+      color: var(--accent-2);
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.82rem;
+    }
+
+    .back-public {
+      position: absolute;
+      top: 28px;
+      left: 28px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--text-dim);
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(21, 21, 21, 0.6);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      transition: all var(--fast);
+    }
+    .back-public:hover {
+      color: var(--text);
+      background: var(--surface-2);
+      border-color: var(--line-strong);
+      transform: translateX(-2px);
+    }
+  </style>
+</head>
+
+<body class="login-body">
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <a href="../index.html" class="back-public" aria-label="Back to public site">
+    <svg viewBox="0 0 24 24" class="ico" width="16" height="16"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    <span>Public Site</span>
+  </a>
+
+  <div class="login-card">
+    <div class="login-header">
+      <div class="login-logo">
+        <span class="logo__mark">
+        <svg viewBox="0 0 32 32" width="22" height="22">
+          <path d="M9 25V7h8a5 5 0 010 10H9M14 17l9 8" fill="none" stroke="currentColor"
+                stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        </span>
+        <span class="logo__text" style="font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em;">RONVIANA</span>
+      </div>
+      <div><span class="login-badge">Admin Control</span></div>
+      <h1 class="login-title">Welcome back</h1>
+      <p class="login-subtitle">Authenticate to access platform management</p>
+    </div>
+
+    <div class="login-error" id="loginError" role="alert">
+      <svg viewBox="0 0 24 24" class="ico" width="18" height="18" style="stroke: currentColor; flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="loginErrorText">Invalid email or password</span>
+    </div>
+
+    <form class="login-form" id="loginForm" autocomplete="on">
+      <div class="form-group">
+        <label for="email">Administrator Email</label>
+        <div class="input-wrapper">
+          <svg viewBox="0 0 24 24" class="ico input-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <input type="email" id="email" name="email" required placeholder="admin@ronviana.com" autocomplete="email" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <svg viewBox="0 0 24 24" class="ico input-icon"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <input type="password" id="password" name="password" required placeholder="••••••••••••" autocomplete="current-password" />
+          <button type="button" class="toggle-pwd" id="togglePwd" aria-label="Toggle password visibility">
+            <svg viewBox="0 0 24 24" class="ico" width="18" height="18" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-meta">
+        <label>
+          <input type="checkbox" id="rememberMe" checked />
+          <span>Remember session</span>
+        </label>
+      </div>
+
+      <button type="submit" class="login-btn" id="submitBtn">
+        <span class="btn-spinner"></span>
+        <span class="btn-text">Sign In to Dashboard</span>
+      </button>
+    </form>
+
+    <div class="demo-hint">
+      Default credentials seeded in database:<br />
+      Email: <code>admin@ronviana.com</code> &nbsp;•&nbsp; Pass: <code>Ronviana2026!</code>
+    </div>
+  </div>
+
+  <script>
+    function getApiBase() {
+      if (window.location.port === '5500' || window.location.port === '5501' || window.location.protocol === 'file:') {
+        return 'http://127.0.0.1:8000';
+      }
+      if (window.location.port === '3000' || window.location.port === '8000') {
+        return '';
+      }
+      if (window.location.pathname.includes('/ronviana/')) {
+        return '/ronviana';
+      }
+      return '';
+    }
+
+    // Check if token already exists and verify
+    (async function checkExistingAuth() {
+      const token = localStorage.getItem('ronviana_token') || localStorage.getItem('wallora_token');
+      if (!token) return;
+
+      try {
+        const res = await fetch(getApiBase() + '/api/auth/me', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          window.location.replace('dashboard.html');
+        } else {
+          localStorage.removeItem('ronviana_token');
+          localStorage.removeItem('ronviana_admin');
+          localStorage.removeItem('wallora_token');
+          localStorage.removeItem('wallora_admin');
+        }
+      } catch (e) {
+        // Network or server error, stay on login
+      }
+    })();
+
+    // Password toggle
+    const pwdInput = document.getElementById('password');
+    const togglePwd = document.getElementById('togglePwd');
+    const eyeIcon = document.getElementById('eyeIcon');
+
+    togglePwd.addEventListener('click', () => {
+      const isPwd = pwdInput.type === 'password';
+      pwdInput.type = isPwd ? 'text' : 'password';
+      eyeIcon.innerHTML = isPwd
+        ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+        : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    });
+
+    // Form submission
+    const loginForm = document.getElementById('loginForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loginError = document.getElementById('loginError');
+    const loginErrorText = document.getElementById('loginErrorText');
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginError.style.display = 'none';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) return;
+
+      submitBtn.classList.add('is-loading');
+      submitBtn.disabled = true;
+
+      try {
+        const apiUrl = getApiBase() + '/api/auth/login';
+        let res;
+        try {
+          res = await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
+        } catch (fetchErr) {
+          throw new Error('Could not reach backend API at ' + apiUrl + '. Please ensure the server is running on port 8000 or start WAMP.');
+        }
+
+        const rawText = await res.text();
+        let data = {};
+        try {
+          data = rawText ? JSON.parse(rawText) : {};
+        } catch (jsonErr) {
+          throw new Error('API server returned unexpected response (' + res.status + '): ' + (rawText.slice(0, 100) || 'Empty body') + '. Please use http://127.0.0.1:8000/admin/');
+        }
+
+        if (!res.ok) {
+          throw new Error(data.error || 'Authentication failed');
+        }
+
+        // Save token and admin record
+        localStorage.setItem('ronviana_token', data.token);
+        localStorage.setItem('ronviana_admin', JSON.stringify(data.admin));
+
+        // Smooth redirect
+        window.location.replace('dashboard.html');
+      } catch (err) {
+        loginErrorText.textContent = err.message;
+        loginError.style.display = 'flex';
+      } finally {
+        submitBtn.classList.remove('is-loading');
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
